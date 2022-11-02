@@ -6,7 +6,7 @@
 /*   By: vbrouwer <vbrouwer@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/01 10:18:19 by vbrouwer      #+#    #+#                 */
-/*   Updated: 2022/11/01 14:41:18 by vbrouwer      ########   odam.nl         */
+/*   Updated: 2022/11/02 16:58:00 by vbrouwer      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,8 @@
 
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *c);
-char	*ft_strdup(const char *s1);
-size_t	ft_strlcat(char *dest, const char *src, size_t size);
-void	*ft_calloc(size_t count, size_t size);
 char	*get_next_line(int fd);
-
+char	*ft_strchr(const char *s, int c);
+char	*get_current_line(char *s);
 
 #endif // GET_NEXT_LINE

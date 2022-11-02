@@ -6,31 +6,38 @@
 /*   By: vbrouwer <vbrouwer@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/01 14:19:22 by vbrouwer      #+#    #+#                 */
-/*   Updated: 2022/11/01 14:37:10 by vbrouwer      ########   odam.nl         */
+/*   Updated: 2022/11/02 14:34:29 by vbrouwer      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdlib.h>
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int		len_s1;
-	int		len_s2;
 	char	*res;
+	int		i;
+	int		j;
 
-	if (!s1 && !s2)
+	if (!s1 || !s2)
 		return (NULL);
-	if (!s1)
-		return (res = ft_strdup(s2));
-	if (!s2)
-		return (res = ft_strdup(s1));
-	len_s1 = ft_strlen(s1);
-	len_s2 = ft_strlen(s2);
-	res = ft_calloc((len_s1 + len_s2 + 1), sizeof(char));
-	if (!res)
-		return (NULL);
-	ft_strlcat(res, s1, (len_s1 + len_s2 + 1));
-	ft_strlcat(res, s2, (len_s1 + len_s2 + 1));
+	res = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	if (res == 0)
+		return (0);
+	i = 0;
+	j = 0;
+	while (s1[i] != '\0')
+	{
+		res[i] = s1[i];
+		i++;
+	}
+	while (s2[j] != '\0')
+	{
+		res[i] = s2[j];
+		i++;
+		j++;
+	}
+	res[i] = '\0';
 	return (res);
 }
 
@@ -44,65 +51,21 @@ size_t	ft_strlen(const char *c)
 	return (i);
 }
 
-char	*ft_strdup(const char *s1)
+char	*ft_strchr(const char *s, int c)
 {
-	int		s1_len;
-	int		x;
-	char	*res;
+	unsigned int	x;
+	char			*p;
 
-	s1_len = ft_strlen(s1);
-	res = malloc((s1_len + 1) * sizeof(char));
-	if (!res)
-		return (NULL);
+	p = (char *) s;
 	x = 0;
-	while (x < s1_len)
+	while (p[x])
 	{
-		res[x] = s1[x];
+		if (p[x] == (unsigned char) c)
+			return (&p[x]);
 		x++;
 	}
-	res[x] = '\0';
-	return (res);
-}
-
-size_t	ft_strlcat(char *dest, const char *src, size_t size)
-{
-	size_t	x;
-	size_t	y;
-	size_t	dest_len;
-	size_t	src_len;
-
-	dest_len = ft_strlen(dest);
-	src_len = ft_strlen(src);
-	x = 0;
-	y = dest_len;
-	if (size < dest_len + 1)
-		return ((src_len + size));
-	if (size > 0 && dest_len < (size - 1))
-	{
-		while (src[x] && (dest_len + x) < (size - 1))
-		{
-			dest[y] = src[x];
-			y++;
-			x++;
-		}
-		dest[y] = '\0';
-	}
-	return ((dest_len + src_len));
-}
-
-void	*ft_calloc(size_t count, size_t size)
-{
-	char	*res;
-	size_t	x;
-
-	res = malloc(count * size);
-	if (!res)
+	if (p[x] == (unsigned char) c)
+		return (&p[x]);
+	else
 		return (NULL);
-	x = 0;
-	while (x < (count * size))
-	{
-		res[x] = '\0';
-		x++;
-	}
-	return (res);
 }
