@@ -6,7 +6,7 @@
 /*   By: vbrouwer <vbrouwer@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/31 11:47:57 by vbrouwer      #+#    #+#                 */
-/*   Updated: 2022/11/02 17:13:10 by vbrouwer      ########   odam.nl         */
+/*   Updated: 2022/11/05 14:41:57 by vbrouwer      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,22 @@
 
 char	*get_next_line(int fd)
 {
-	char	*total_str;
 	static char	buff[BUFFER_SIZE + 1];
-	int		read_return;
+	char		*temp;
+	int			read_return;
 
-	s = malloc(BUFFER_SIZE + 1);
-	if (!s)
-		return (NULL);
-	while (read_return != 0)
+	temp = ft_calloc(1);
+	while (ft_strchr(temp, '\n') == NULL && read_return != 0)
 	{
-		read_return = read(fd, s, BUFFER_SIZE);
-		s[read_return] = '\0';
-		printf("\n total string : %s", total_str);
-		total_str = ft_strjoin(total_str, s);
-		// s = get_current_line(s);
-		printf("\n total string : %s", total_str);
+		read_return = read(fd, buff, BUFFER_SIZE);
+		if (read_return == -1)
+			return (NULL);
+		buff[read_return] = '\0';
+		temp = ft_strjoin(temp, buff);
 	}
-	return (total_str);
+	return (temp);
 }
 
-// char	*get_current_line(char *s)
-// {
-// 	static int	tracker;
-
-// 	return(ft_strchr(s, '\n'));
-// }
 
 #include <stdio.h>
 #include <unistd.h>
